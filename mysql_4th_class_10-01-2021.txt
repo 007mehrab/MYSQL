@@ -1,0 +1,174 @@
+//  UNSIGNED [ +-*/ ] etc //
+
+CREATE TABLE employees (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    employee_id CHAR(8) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone CHAR(10) NOT NULL,
+    salary DECIMAL(8,2) NOT NULL,
+
+    PRIMARY KEY (id)
+);
+
+-----------------------------------
+
+INSERT INTO employees (id,employee_id,first_name,last_name,email,phone,salary)
+VALUES(NULL,'100','Mehrab','Hossain','mahrab@gmail.com','01777','25000');
+
+INSERT INTO employees (id,employee_id,first_name,last_name,email,phone,salary)
+VALUES(NULL,'100','ismail','Hossain','mahrab@gmail.com','01777','25000');
+
+INSERT INTO employees (id,employee_id,first_name,last_name,email,phone,salary)
+VALUES(NULL,'100','siam','Hossain','mahrab@gmail.com','01777','25000');
+
+INSERT INTO employees (id,employee_id,first_name,last_name,email,phone,salary)
+VALUES(NULL,'100','sakib','Hossain','mahrab@gmail.com','01777','25000');
+
+INSERT INTO employees (id,employee_id,first_name,last_name,email,phone,salary)
+VALUES(NULL,'100','sakil','Hossain','mahrab@gmail.com','01777','25000');
+
+
+
+==========VIEW==================
+
+CREATE VIEW employee_Status AS
+SELECT first_name, last_name, email, phone, salary
+
+FROM
+employees;
+
+-----------------------------------------
+
+CREATE VIEW employee_contact_info_view
+ (`First Name`, `Last Name`, `Email Address`, `Telephone`) AS
+ SELECT first_name, last_name, email, phone
+ FROM employees ORDER BY last_name ASC;
+
+select * from employee_contact_info_view;
+
+---------------------------------
+
+INSERT INTO employee_Status (first_name,last_name,email,phone,salary)
+VALUES('Maruf','Hossain','mahrab@gmail.com','01777','25000');
+
+---------------------------------
+
+DELETE FROM employee_Status 
+WHERE first_name='sakil';
+
+UPDATE employee_Status
+SET salary='20000', email='sakib@gmail.com', phone='01888'
+WHERE first_name='sakib';
+
+==============TRIGGER===================
+
+CREATE TABLE employees_log (
+    log_id INT NOT NULL AUTO_INCREMENT,
+    employee_id MEDIUMINT NOT NULL,
+    events VARCHAR(20),
+    date_time DATETIME,
+    PRIMARY KEY(log_id)
+);
+
+----------------INSERT-----------------------
+DELIMITER $$
+
+CREATE TRIGGER after_insert_employee
+AFTER INSERT ON employees
+FOR EACH ROW
+
+ BEGIN
+ INSERT INTO employees_log
+ SET employee_id = NEW.employee_id,
+ events = 'INSERT',
+ date_time = NOW();
+
+END$$
+
+DELIMITER ;
+
+-------------------OR------------------------
+
+
+DELIMITER $$
+
+CREATE TRIGGER after_insert_employee
+AFTER INSERT ON employees
+FOR EACH ROW
+ BEGIN
+ INSERT INTO employee_log(log_id, employees_id, events, date_time)
+ VALUES('',NEW.employee_id,'CREATE',NOW());
+
+END$$
+
+DELIMITER ;
+
+INSERT INTO employees (id,employee_id,first_name,last_name,email,phone,salary)
+VALUES(NULL,'100','sakil','Hossain','mahrab@gmail.com','01777','25000');
+
+
+---------------------UPDATE--------------------
+
+DELIMITER $$
+
+CREATE TRIGGER before_update_employee
+BEFORE UPDATE ON employees
+FOR EACH ROW
+
+ BEGIN
+ INSERT INTO employees_log
+ VALUES('',OLD.employee_id,'UPDATE',NOW());
+
+END$$
+
+DELIMITER ;
+
+
+-----------------DELETE--------------------
+
+DELIMITER $$
+
+CREATE TRIGGER before_delete_employee
+BEFORE DELETE ON employees
+FOR EACH ROW
+
+ BEGIN
+ INSERT INTO employees_log
+ VALUES('',OLD.employee_id,'DELETE',NOW());
+
+END$$
+
+DELIMITER ;
+
+#####################################################
+
+=======================New USer======================
+
+exit;
+
+mysql -h localhost -u root -p
+
+
+create user 'mehrab'@'localhost'
+identified by 'admin123';
+
+-------ALL---------
+GRANT ALL PRIVILEGES ON * . * TO 'mehrab'@'localhost';
+
+
+--------Spacific permission-----------
+GRANT insert,delete,update ON * . * TO 'mehrab'@'localhost';
+
+
+FLUSH PRIVILEGES;
+
+SHOW GRANTS FOR 'mehrab'@'localhost';
+
+mysql -h localhost -u mehrab -p
+
+show databases;
+
+drop user 'mehrab'@'localhost';
+

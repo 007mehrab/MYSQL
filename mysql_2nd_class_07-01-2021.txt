@@ -1,0 +1,468 @@
+
+mysql -h localhost -u root -puse 
+
+pwad46;
+
+desc students;
+
+select*
+from students;
+
+==================================================
+
+create table students2(
+  Id int(10) NOT NULL auto_increment,
+  name varchar(50) NOT NULL,
+  email varchar(50) NOT NULL,
+  phone varchar(50) NULL,
+  primary key (Id)
+);
+
+
+desc students2;
+
+
+
+insert into students2
+(id, name, email, phone)
+values(NULL,'Mehrab','Mahrab@gmail.com','01777');
+
+insert into students2
+(id, name, email, phone)
+values(NULL,'Ismail','Ismail@gmail.com','01666');
+
+insert into students
+(id, name, email, phone)
+values(NULL,'Siam','siam@gmail.com','01888');
+
+insert into students2
+(id, name, email, phone)
+values(100,'Sakib','sakib@gmail.com','01999');
+
+
+
+select*
+from students;
+
+
+select*
+from students2;
+
+
+
+=========================================
+
+//create new user from mysql file, Now
+
+
+SELECT FROM employees;
+
+SELECT firstName, lastName FROM employees;
+
+
+
+===============================
+SELECT
+	contactLastname,
+	contactFirstname
+FROM
+	customers
+ORDER BY
+	contactLastname;
+
+------------------
+
+SELECT
+	contactLastname,
+	contactFirstname
+FROM
+	customers
+ORDER BY
+	contactLastname DESC;
+
+--------------------
+
+SELECT
+	contactLastname,
+	contactFirstname
+FROM
+	customers
+ORDER BY
+	contactLastname DESC,
+	contactFirstname ASC;
+
+=====================
+
+SELECT 
+
+     lastName, 
+     email, 
+     jobTitle 
+FROM
+
+     employees
+WHERE 
+  
+     jobTitle='Sales Rep';
+
+-------------------------
+
+SELECT 
+
+     lastName, 
+     email, 
+     jobTitle 
+FROM
+
+     employees
+WHERE 
+  
+     jobTitle='President';
+
+----------------------
+
+SELECT 
+    lastname, 
+    firstname, 
+    jobtitle,
+    officeCode
+FROM
+    employees
+WHERE
+    jobtitle = 'Sales Rep' AND 
+    officeCode = 3;
+
+-------------------------
+
+SELECT 
+    firstName, 
+    lastName, 
+    officeCode
+FROM
+    employees
+WHERE
+    officeCode IN (1 , 3);
+
+------------------------
+
+SELECT 
+    firstName, 
+    lastName, 
+    officeCode
+FROM
+    employees
+WHERE
+    officeCode BETWEEN 1 AND 3
+ORDER BY officeCode;
+
+---------------------------
+
+SELECT 
+    firstName, 
+    lastName, 
+    officeCode
+FROM
+    employees
+WHERE
+    jobTitle='Sales Rep' AND officeCode ='7' AND reportsTo >1100;
+
+---------------------------
+
+SELECT 
+    lastName, 
+    firstName, 
+    jobTitle, 
+    officeCode
+FROM
+    employees
+WHERE
+    jobtitle = 'Sales Rep' OR 
+    officeCode = 1;
+
+
+--------------------------------
+
+SELECT 
+    firstName, 
+    lastName
+FROM
+    employees
+WHERE
+    lastName LIKE '%son';
+
+--------------------------------
+
+SELECT 
+    firstName, 
+    lastName
+FROM
+    employees
+WHERE
+    lastName LIKE 'Patt%';
+
+-----------------------------
+
+SELECT 
+    lastName, 
+    firstName, 
+    reportsTo
+FROM
+    employees
+WHERE
+    reportsTo IS NULL;
+
+--------------------------
+
+SELECT 
+    lastname, 
+    firstname, 
+    jobtitle
+FROM
+    employees
+WHERE
+    jobtitle <> 'Sales Rep';
+
+--------------------------
+
+SELECT 
+    lastname, 
+    firstname, 
+    officeCode
+FROM
+    employees
+WHERE 
+    officecode > 5;
+
+---------------------------
+
+SELECT 
+    lastname, 
+    firstname, 
+    officeCode
+FROM
+    employees
+WHERE 
+    officecode <= 4;
+
+=============================
+
+SELECT 
+    DISTINCT lastname       //unique value
+FROM
+    employees
+ORDER BY 
+    lastname;
+
+--------------------------
+
+SELECT DISTINCT
+    employeeNumber, lastName, reportsTo
+FROM
+   employees
+WHERE
+    reportsTo IS NOT NULL;
+
+--------------------------
+
+SELECT DISTINCT
+    employeeNumber, lastName, reportsTo
+FROM
+   employees
+WHERE
+    reportsTo IS NULL;
+
+===================================
+
+SELECT 
+
+    customerNumber,customerName, country, salesRepEmployeeNumber
+FROM
+    customers
+
+GROUP BY salesRepEmployeeNumber;    //unique
+
+---------------------------------
+
+SELECT 
+    COUNT(DISTINCT state)
+FROM
+    customers
+WHERE
+    country = 'USA';
+
+------------------------------------
+
+SELECT 
+    COUNT(state)
+FROM
+    customers
+WHERE
+    country = 'USA';
+
+===============================
+
+SELECT DISTINCT
+    state
+FROM
+    customers
+WHERE
+    state IS NOT NULL
+LIMIT 5;
+
+--------------------------
+
+SELECT DISTINCT
+    state
+FROM
+    customers
+WHERE
+    state IS NOT NULL;
+
+============================
+
+SELECT 
+    customername, 
+    country, 
+    state
+FROM
+    customers
+WHERE
+    country = 'USA' AND state = 'CA'
+
+---------------------------------------
+
+SELECT    
+	customername, 
+	country, 
+	creditLimit
+FROM    
+	customers
+WHERE country = 'USA'
+		OR country = 'France'
+		AND creditlimit > 10000;
+
+===========================================
+
+
+SELECT 
+    orderNumber
+FROM
+    orderDetails
+GROUP BY 
+    orderNumber
+HAVING 
+    SUM(quantityOrdered * priceEach) > 60000;
+
+--------------------------------------
+
+SELECT 
+    orderNumber, quantityOrdered, priceEach, orderNumber
+FROM
+    orderDetails
+HAVING 
+    SUM(quantityOrdered * priceEach) > 60000;
+
+-----------------------------------------
+
+SELECT 
+    orderNumber, priceEach, orderNumber, 
+    (priceEach * quantityOrdered) AS totalPrice
+
+FROM
+    orderDetails;
+
+======================================
+
+SELECT 
+    productCode, 
+    productName, 
+    buyPrice
+FROM
+    products
+WHERE
+    buyPrice BETWEEN 90 AND 100;
+
+-------------------------------------
+
+SELECT 
+    productCode, 
+    productName, 
+    buyPrice
+FROM
+    products
+WHERE
+    buyPrice >= 90 AND buyPrice <= 100;
+
+------------------------------------
+
+SELECT 
+    productCode, 
+    productName, 
+    buyPrice
+FROM
+    products
+WHERE
+    buyPrice NOT BETWEEN 20 AND 100;
+
+-----------------------------------
+
+SELECT 
+    productCode, 
+    productName, 
+    buyPrice
+FROM
+    products
+WHERE
+    buyPrice < 20 OR buyPrice > 100;
+
+-----------------------------------
+
+SELECT 
+   orderNumber,
+   requiredDate,
+   status
+FROM 
+   orders
+WHERE 
+   requireddate BETWEEN 
+     CAST('2003-01-01' AS DATE) AND 
+     CAST('2003-01-31' AS DATE);
+
+----------------------------------
+
+
+//INSERT New Table
+
+CREATE TABLE IF NOT EXISTS tasks (
+    task_id INT AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    start_date DATE,
+    due_date DATE,
+    priority TINYINT NOT NULL DEFAULT 3,
+    description TEXT,
+    PRIMARY KEY (task_id)
+);
+
+
+---------------------------------------------------------
+
+//INSERT TABLE
+
+INSERT INTO tasks(task_id,title,start_date,due_date,priority, description)
+VALUES(NULL,'HR','2021-02-10','2021-02-05',DEFAULT,'Human Resource');
+
+INSERT INTO tasks(title,start_date,due_date,description)
+VALUES('HR','2021-02-10','2021-02-05','Human Resource');
+
+
+
+
+
+
+
+
+
+
+
+
+

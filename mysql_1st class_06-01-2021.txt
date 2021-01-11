@@ -1,0 +1,98 @@
+mysql -h localhost -u root -p
+
+exit
+
+
+mysql commends:
+
+show databases;
+
+Clear;
+
+select database: use test;
+
+show tables;
+
+describe users;
+
+
+======================
+
+create database pwad46;
+
+use pwad46;
+
+show tables;
+
+create table students(
+  Id int(10) NOT NULL auto_increment,
+  name varchar(50) NOT NULL,
+  email varchar(50) NOT NULL,
+  phone varchar(50) NULL,
+  primary key (Id)
+);
+
+desc students;
+
+//drop table students1;
+
+
+create database pwad47;
+use pwad47;
+show tables;
+drop database pwad47;
+
+========================
+
+use pwad46;
+
+insert into students
+(id, name, email, phone)
+values(NULL,'Mehrab','Mahrab@gmail.com','01777');
+
+insert into students
+(id, name, email, phone)
+values(NULL,'Ismail','Ismail@gmail.com','01666');
+
+insert into students
+(id, name, email, phone)
+values(NULL,'Siam','siam@gmail.com','01888');
+
+insert into students
+(id, name, email, phone)
+values(100,'Sakib','sakib@gmail.com','01999');
+
+
+select*
+from students;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

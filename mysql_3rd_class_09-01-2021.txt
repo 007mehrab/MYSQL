@@ -1,0 +1,187 @@
+
+
+CREATE TABLE employees (
+    Id INT AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    Department VARCHAR(100) NOT NULL,
+    Position VARCHAR(100) NOT NULL,
+    Manager TINYINT NULL DEFAULT NULL,
+    Level INT TINYINT NULL,
+    Join_Date DATE,
+
+    PRIMARY KEY (Id)
+);
+
+
+INSERT INTO employees (Id,Name,Department,Position,Manager, Level,Join_Date)
+VALUES(NULL,'Mehrab','Marketing','Marketing Manager','5','6','2018-05-06');
+
+
+
+INSERT INTO employees 
+VALUES(NULL,'Parvez','Marketing','Marketing Manager','4','5','2018-05-06');
+
+INSERT INTO employees 
+VALUES(NULL,'Siam','Marketing','Marketing Manager','6','5','2018-05-06'),
+(NULL,'Sakib','Managment','Manager','7','5','2018-05-06'),
+(NULL,'Mahmud','Sales Manager','SR','8','5','2018-05-06'),
+(NULL,'Maruf','Accounting','Account Manager','3','5','2018-05-06');
+
+
+
+======================UPDATE======================
+
+
+UPDATE employees SET name="Hasan", department ="Accounting", position="Account Assistence"
+where Id='4';
+
+UPDATE employees SET Id='6'
+where Id='7';
+
+
+
+======================DELETE======================
+
+DELETE FROM employees 
+WHERE Id='6';
+
+====================ALTER=========================
+
+ALTER TABLE employees
+ADD Email VARCHAR(50) NOT NULL  
+AFTER Join_Date;
+
+----------------------DROP------------------------
+Alter TABLE employees
+DROP sss;
+
+-------------------Modify-------------------------
+
+Alter TABLE employees
+MODIFY Email varchar(250);
+
+====================RENAME=======================
+
+ALTER TABLE employees
+RENAME TO new_employees;
+
+-------------------------------------------------
+
+ALTER TABLE new_employees
+CHANGE Email 
+New_Email VARCHAR(50);
+
+================FIND FOREIGN KEY=================
+
+SELECT employeeNumber, lastName, JobTitle, City,phone,country
+FROM
+employees, offices
+WHERE
+offices.officeCode = employees.officeCode;
+
+
+---------------------------------------------------
+
+SELECT orders.orderNumber, orderDate, status, productCode,quantityOrdered
+FROM
+orders, orderdetails
+
+WHERE
+orders.orderNumber = orderdetails.orderNumber;
+
+
+======================CREATE VIEW=============================
+
+CREATE VIEW Order_Status AS
+SELECT orders.orderNumber, orderDate, status, productCode,quantityOrdered
+
+FROM
+orders, orderdetails
+
+WHERE
+orders.orderNumber = orderdetails.orderNumber;
+
+------------------------------------------------------
+
+CREATE VIEW salePerOrder AS
+    SELECT 
+        orderNumber, 
+        SUM(quantityOrdered * priceEach) total
+    FROM
+        orderDetails
+    GROUP by orderNumber
+    ORDER BY total DESC;
+
+-------------------------------------------------------
+
+CREATE VIEW bigSalesOrder AS
+    SELECT 
+        orderNumber, 
+        ROUND(total,2) as total
+    FROM
+        salePerOrder
+    WHERE
+        total > 60000;
+
+======================BACKUP FILE========================
+
+
+CREATE TRIGGER before_student_deletes
+BEFORE DELETE ON students
+FOR EACH ROW
+INSERT INTO backup
+SET ID=OLD.ID,
+Name=OLD.Name,
+Email=OLD.Email,
+Phone=OLD.Phone,
+deltime=NOW();
+
+
+
+
+
+
+
+
+
+
+===========CREATE FOREIGN KEY================
+
+
+CREATE TABLE departments (
+    department_id INT AUTO_INCREMENT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+
+CREATE TABLE employees (
+    id int AUTO_INCREMENT primary key,
+    first_name varchar(50) not null,
+    last_name varchar(50) not null,
+    department_id int not null,
+    FOREIGN KEY (department_id)
+    REFERENCES departments (department_id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

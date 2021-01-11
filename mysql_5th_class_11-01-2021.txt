@@ -1,0 +1,111 @@
+SELECT
+   CONCAT_WS(', ', lastName, firstname) AS `Full name`
+FROM
+   employees;
+
+--------------INNER JOIN--------------------
+
+SELECT 
+    CONCAT(m.lastName, ', ', m.firstName) AS Manager,
+    CONCAT(e.lastName, ', ', e.firstName) AS 'Direct report'
+FROM
+    employees e
+INNER JOIN employees m ON 
+    m.employeeNumber = e.reportsTo;
+
+---------------SELF JOIN--------------------
+
+SELECT 
+    c1.city, 
+    c1.customerName, 
+    c2.customerName
+FROM
+    customers c1
+INNER JOIN customers c2 ON 
+    c1.city = c2.city
+    AND c1.customername > c2.customerName
+
+
+============================================
+
+mysql -h localhost -u root -p
+
+
+GRANT insert,delete,update ON * . * TO 'Mehrab'@'localhost'
+identified by 'admin123';
+
+drop user 'Mehrab'@'localhost';
+
+=================CREATE USER====================
+
+create user 'Mehrab'@'localhost'
+identified by 'admin123';
+
+RENAME user 'Mehrab'@'localhost' to 'parvez'@'localhost';
+
+GRANT insert, delete, update ON * . * TO 'parvez'@'localhost'
+identified by 'password';
+
+
+===========PRIVILEGES UPDATES ON EXISTING USER============
+
+GRANT insert ON pwad46.* TO 'parvez'@'localhost'
+identified by 'password';
+
+
+GRANT update ON pwad46. * TO 'parvez'@'localhost';
+
+GRANT delete ON pwad46.* TO 'parvez'@'localhost';
+
+=================COLUMN LEVEL PRIVILEGES==================
+
+GRANT update(last_name) ON pwad46.employees TO 'parvez'@'localhost';
+
+GRANT update(first_name) ON pwad46.employees TO 'parvez'@'localhost';
+
+==================PRIVILEGES WITHDREW=====================
+
+REVOKE update on PWAD46.* FROM 'parvez'@'localhost';
+
+REVOKE ALL PRIVILEGES on PWAD46.* FROM 'parvez'@'localhost';
+
+-------------REVOKE AND GRANT FROM USER------------------
+
+REVOKE update ON * . * FROM 'parvez'@'localhost';
+
+GRANT update ON * . * TO 'parvez'@'localhost';
+
+
+=====================PRIVILEGES GRANT=====================
+
+GRANT ALL PRIVILEGES on PWAD46.* TO 'parvez'@'localhost';
+
+================SHOW GRANT FOR CURRENT USER===============
+
+SHOW GRANTS FOR 'parvez'@'localhost';
+
+
+mysql -h localhost -u parvez -p
+
+
+##################### DIRECT DELETE FROM SHELL ##########################
+
+mysqladmin -h localhost -u root -p drop pwad47
+
+
+
+=====================COPY TABLE====================
+
+create table students1 select* from students;
+
+
+drop table students1;
+
+
+------------CREATE TABLE FROM ANOTHER DATABASE TABLE-----------
+
+create table pwad48.students1 select* from pwad46.employees;
+
+drop table students1;
+
+
