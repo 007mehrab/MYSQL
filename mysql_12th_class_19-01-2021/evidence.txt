@@ -1,0 +1,74 @@
+//TABLE----------------
+
+
+create table users(
+  id int(10) NOT NULL auto_increment,
+  username varchar(50) NOT NULL,
+  password varchar(50) NOT NULL,
+  primary key (id)
+);
+
+
+create table manufacturer(
+  id int(10) NOT NULL AUTO_INCREMENT,
+  name varchar(50) NOT NULL,
+  address varchar(50) NOT NULL,
+  contact_no varchar(50) NOT NULL,
+  primary key (id)
+);
+
+
+
+CREATE TABLE product (
+id int(10) NOT NULL AUTO_INCREMENT,
+name varchar(50) NOT NULL,
+price int(5) NOT NULL,
+
+manufacturer_id int(10) NOT NULL,
+PRIMARY KEY (id)
+) ;
+
+
+
+//TRIGGER-------------
+
+
+CREATE TRIGGER `log_manu_del` 
+AFTER DELETE ON `manufacturer` 
+FOR EACH ROW 
+DELETE FROM product
+WHERE
+manufacturer_id = OLD.id;
+
+
+
+
+=========Procedure===========
+
+DELIMITER $$
+
+Create PROCEDURE data_insert(
+IN id_val CHAR(50),
+IN name_val CHAR(40),
+IN add_val CHAR(30),
+IN cont_val CHAR(20)
+)
+BEGIN 
+INSERT INTO manufacturer(id, name, address, contact_no)
+values(id_val, name_val, add_val, cont_val);
+
+END $$
+
+DELIMITER ;
+
+==========VIEW=============
+
+ CREATE VIEW details_view AS
+
+ SELECT manufacturer.id,product.name, address, contact_no, price FROM
+ manufacturer,product
+ where
+ manufacturer.id = product.manufacturer_id
+
+ AND product.price > 5000;
+

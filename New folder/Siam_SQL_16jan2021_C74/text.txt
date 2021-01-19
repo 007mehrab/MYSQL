@@ -1,0 +1,21 @@
+##############################
+
+database: 13pwad46_phpcrud;
+
+table: Users;
+
+id, fullname, email, password
+
+CREATE TABLE users(
+	id INT NOT NULL AUTO_INCREMENT,
+	fullname VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	password VARCHAR(50) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+INSERT INTO users VALUES ('','Siam','siam@gmail.com','123456');
+INSERT INTO users VALUES ('','Alim','alim@gmail.com','111111');
+
+
+https://www.php.net/manual/en/class.mysqli.php

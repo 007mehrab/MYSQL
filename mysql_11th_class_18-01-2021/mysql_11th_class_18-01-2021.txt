@@ -1,0 +1,61 @@
+
+
+=================================================
+
+
+create table student_info(
+
+  id int(10) NOT NULL auto_increment,
+  name varchar(50) NOT NULL,
+  email varchar(50) NOT NULL,
+  mobile varchar(50) NOT NULL,
+  gender enum('male', 'female')NOT NULL,
+  primary key(id)
+
+);
+
+-------------------------------
+
+create table present_add(
+
+  id int(10) NOT NULL auto_increment,
+  road_area varchar(50) NOT NULL,
+  district varchar(50) NOT NULL,
+  stinfo_id int(10) NOT NULL,
+
+  primary key(id)
+
+);
+
+-------------VIEW--------------------
+
+CREATE VIEW student_details_view AS
+
+ SELECT student_info.id, name, email, mobile, gender, road_area, district FROM
+ student_info,present_add
+ where
+ student_info.id = present_add.stinfo_id;
+
+
+ =================TRIGGER===============
+\\delete student_info and then delete with present_add
+
+DELIMITER $$
+
+CREATE TRIGGER `after_delete_student_trigger` 
+AFTER DELETE ON `student_info` 
+FOR EACH ROW DELETE FROM present_add 
+WHERE stinfo_id = OLD.id
+
+END$$
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+

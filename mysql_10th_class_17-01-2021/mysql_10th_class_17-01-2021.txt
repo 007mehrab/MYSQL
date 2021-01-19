@@ -1,0 +1,132 @@
+mysql -h localhost -u root -p
+
+------------------------------------
+
+use classicpwad46;
+
+=============PROCEDURE===============
+
+DELIMITER $$
+
+CREATE PROCEDURE GetCustomers()
+BEGIN
+	SELECT *
+	FROM customers;
+   
+END $$
+DELIMITER ;
+
+------------------------------------
+
+call GetCustomers();
+
+=====================================
+
+drop procedure GetCustomers;
+
+-------------------------------------
+
+DELIMITER //
+
+CREATE PROCEDURE GetOfficeByCountry(
+	IN countryName VARCHAR(255)
+)
+BEGIN
+	SELECT * 
+ 	FROM offices
+	WHERE country = countryName;
+END //
+
+DELIMITER ;
+
+----------------OR----------------------
+
+DELIMITER //
+
+CREATE PROCEDURE GetOfficeByCountry(
+	OUT countryName VARCHAR(255)
+)
+BEGIN
+	SELECT * 
+ 	FROM offices
+	WHERE country = countryName;
+END //
+
+DELIMITER ;
+
+---------------OR-----------------------
+
+DELIMITER //
+
+CREATE PROCEDURE GetOfficeByCountry(
+	INOUT countryName VARCHAR(255)
+)
+BEGIN
+	SELECT * 
+ 	FROM offices
+	WHERE country = countryName;
+END //
+
+DELIMITER ;
+
+=======================================
+
+call GetOfficeByCountry('USA');
+
+---------------------------------------
+
+
+DELIMITER $$
+
+CREATE PROCEDURE GetOrderCountByStatus (
+	IN  orderStatus VARCHAR(25),
+	OUT total INT
+)
+BEGIN
+	SELECT COUNT(orderNumber)
+	INTO total
+	FROM orders
+	WHERE status = orderStatus;
+END$$
+
+DELIMITER ;
+
+---------------------------------------
+
+call GetOrderCountByStatus('cancelled',@total);
+
+select @total;
+
+---------------------------------------
+
+call GetOrderCountByStatus('Resolved',@total);
+
+select @total;
+
+=======================================
+
+DELIMITER $$
+
+Create PROCEDURE data_insert(
+IN n_val CHAR(50),
+IN e_val CHAR(40),
+IN m_val CHAR(30),
+IN g_val CHAR(20)
+)
+BEGIN 
+INSERT INTO student_info(id, name, email, mobile, gender)
+values(NULL,n_val, e_val, m_val, g_val);
+
+END $$
+
+DELIMITER ;
+
+
+call data_insert('Rahim', 'rahim@gmail.com', '01778558', 'Male');
+
+
+
+
+
+
+
