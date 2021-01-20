@@ -1,0 +1,64 @@
+//TABLE----------------
+
+
+create table student(
+  id int(10) NOT NULL AUTO_INCREMENT,
+  name varchar(50) NOT NULL,
+  address varchar(50) NOT NULL,
+  contact_no varchar(50) NOT NULL,
+  primary key (id)
+);
+
+
+
+CREATE TABLE result (
+id int(10) NOT NULL AUTO_INCREMENT,
+module_name varchar(50) NOT NULL,
+totalmarks int(5) NOT NULL,
+
+student_id int(10) NOT NULL,
+PRIMARY KEY (id)
+) ;
+
+
+
+//TRIGGER-------------
+
+
+CREATE TRIGGER `log_manu_del` 
+AFTER DELETE ON `student` 
+FOR EACH ROW 
+DELETE FROM result
+WHERE
+student_id = OLD.id;
+
+
+
+
+=========Procedure===========
+
+DELIMITER $$
+
+Create PROCEDURE data_insert(
+IN id_val CHAR(50),
+IN name_val CHAR(40),
+IN add_val CHAR(30),
+IN cont_val CHAR(20)
+)
+BEGIN 
+INSERT INTO student(id, name, address, contact_no)
+values(id_val, name_val, add_val, cont_val);
+
+END $$
+
+DELIMITER ;
+
+==========VIEW=============
+
+ CREATE VIEW details_view AS
+
+ SELECT student.id,student.name, address, contact_no, totalmarks FROM
+ student,result
+ where
+ student.id = result.student_id;
+
