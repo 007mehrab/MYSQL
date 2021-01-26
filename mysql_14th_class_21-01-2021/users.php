@@ -3,6 +3,26 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="stylesheet" href="assets/css/animate.min.css">
+<style>
+  .user1{
+    background-color: #879586;
+    padding: 10px;
+    width: 250px;
+  }
+  .user2{
+    background-color: #868EB2;
+    padding: 10px;
+    width: 250px;
+  }
+
+  .user3{
+    background-color: lightgray;
+    padding: 10px;
+    width: 300px;
+  }
+</style>
+
 </head>
 <body>
 
@@ -28,13 +48,15 @@ $error = "<h1>Invalid User</h1>";
 
 
 </head>
-<body align="center">
- <div class="container">
+<body>
+  <center>
+ <div class="container user3">
+  <center>
 
- <h2 class="class animate__animated  animate__flip" align="center">Login Form</h2>
+ <h2 class="user1 class animate__animated  animate__flip" align="center">Login Form</h2>
 
 
- <div>
+ <div class="user2">
    <div class="row">
      <div class="col-sm-4 col-sm-offset-4">
        <form action="" method="post">
@@ -61,7 +83,7 @@ $error = "<h1>Invalid User</h1>";
 
  } ?>
 
-
+</center>
 
  </div>
 </body>
